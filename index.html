@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SpendWise Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="brand">
+        <span class="brand-icon" aria-hidden="true">$</span>
+        <span class="brand-name">SpendWise</span>
+      </div>
+
+      <nav aria-label="Main navigation">
+        <ul class="nav-list">
+          <li><a class="nav-item active" href="#"><span aria-hidden="true">📊</span> Dashboard</a></li>
+          <li><a class="nav-item" href="#"><span aria-hidden="true">💸</span> Transactions</a></li>
+          <li><a class="nav-item" href="#"><span aria-hidden="true">🎯</span> Budgets</a></li>
+          <li><a class="nav-item" href="#"><span aria-hidden="true">📈</span> Reports</a></li>
+          <li><a class="nav-item" href="#"><span aria-hidden="true">⚙️</span> Settings</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- Header -->
+    <header class="header">
+      <div class="header-title">
+        <h1>Dashboard</h1>
+        <p>November 2026 overview</p>
+      </div>
+      <div class="header-actions">
+        <button class="btn" type="button">+ Add Expense</button>
+        <div class="user">
+          <span class="avatar" aria-hidden="true">JD</span>
+          <span class="user-name">Jane Doe</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main content -->
+    <main class="main">
+      <h2 class="section-title">Spending by category</h2>
+
+      <section class="cards" aria-label="Category cards">
+
+        <article class="card" tabindex="0">
+          <div class="card-top">
+            <span class="card-icon" aria-hidden="true">🍔</span>
+            <span class="badge">62% used</span>
+          </div>
+          <h3>Food</h3>
+          <p class="amount">$310.00</p>
+          <p class="meta">of $500 budget</p>
+        </article>
+
+        <article class="card" tabindex="0">
+          <div class="card-top">
+            <span class="card-icon" aria-hidden="true">🚌</span>
+            <span class="badge">48% used</span>
+          </div>
+          <h3>Transport</h3>
+          <p class="amount">$96.50</p>
+          <p class="meta">of $200 budget</p>
+        </article>
+
+        <article class="card" tabindex="0">
+          <div class="card-top">
+            <span class="card-icon" aria-hidden="true">🏠</span>
+            <span class="badge">100% used</span>
+          </div>
+          <h3>Rent</h3>
+          <p class="amount">$900.00</p>
+          <p class="meta">of $900 budget</p>
+        </article>
+
+        <article class="card" tabindex="0">
+          <div class="card-top">
+            <span class="card-icon" aria-hidden="true">🎬</span>
+            <span class="badge">85% used</span>
+          </div>
+          <h3>Entertainment</h3>
+          <p class="amount">$127.50</p>
+          <p class="meta">of $150 budget</p>
+        </article>
+
+        <article class="card" tabindex="0">
+          <div class="card-top">
+            <span class="card-icon" aria-hidden="true">🏦</span>
+            <span class="badge">70% of goal</span>
+          </div>
+          <h3>Savings</h3>
+          <p class="amount">$350.00</p>
+          <p class="meta">of $500 goal</p>
+        </article>
+
+        <article class="card" tabindex="0">
+          <div class="card-top">
+            <span class="card-icon" aria-hidden="true">💡</span>
+            <span class="badge">55% used</span>
+          </div>
+          <h3>Utilities</h3>
+          <p class="amount">$110.00</p>
+          <p class="meta">of $200 budget</p>
+        </article>
+
+      </section>
+    </main>
+
+  </div>
+</body>
+</html>
