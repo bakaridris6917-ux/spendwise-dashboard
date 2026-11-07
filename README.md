@@ -111,7 +111,7 @@ Form handlers call `event.preventDefault()` so the page does not reload. The del
 
 ## Challenges and How I Solved Them
 
-- **Delete buttons that do not exist yet:** the buttons are created by JavaScript, so adding a listener to each one was awkward. I used event delegation with `event.target.closest(".delete-btn")` and a `data-id` attribute to know which expense to remove.
+- **Delete buttons that do not exist yet:** the buttons are created by JavaScript, so adding a listener to each one was a challange. I used event delegation with `event.target.closest(".delete-btn")` and a `data-id` attribute to know which expense to remove it.
 - **Keeping the page and data in sync:** at first it was easy for the totals and the list to disagree. I fixed this by keeping all data in the arrays and redrawing everything from them with one `render()` function.
 - **Invalid input:** empty fields, zero, or negative numbers could break the calculations. I added validation with `trim()`, `parseFloat()` and `isNaN()`, and show an error message instead.
 - **Safe output:** inserting user text with `innerHTML` could allow HTML injection, so I used `textContent` for everything the user types.
