@@ -7,13 +7,16 @@
   --color-text: #111827;        /* primary text */
   --color-text-muted: #6b7280;  /* secondary text */
   --color-border: #e5e7eb;
+  --color-success: #16a34a;     /* on track */
+  --color-warning: #d97706;     /* getting close */
+  --color-danger: #dc2626;      /* over budget */
   --shadow-rest: 0 1px 3px rgba(0, 0, 0, 0.08);
   --shadow-lift: 0 10px 24px rgba(79, 70, 229, 0.18);
   --radius: 12px;
   --gap: 1.25rem;
 }
 
-/* ===== Stretch goal: dark theme (only :root variables are overridden) ===== */
+/* ===== Dark theme (only :root variables are overridden) ===== */
 @media (prefers-color-scheme: dark) {
   :root {
     --color-brand: #818cf8;
@@ -23,6 +26,9 @@
     --color-text: #f1f5f9;
     --color-text-muted: #94a3b8;
     --color-border: #334155;
+    --color-success: #4ade80;
+    --color-warning: #fbbf24;
+    --color-danger: #f87171;
     --shadow-rest: 0 1px 3px rgba(0, 0, 0, 0.5);
     --shadow-lift: 0 10px 24px rgba(0, 0, 0, 0.6);
   }
@@ -155,6 +161,7 @@ ul {
 }
 
 .btn {
+  align-self: flex-start;
   padding: 0.6rem 1.1rem;
   border: none;
   border-radius: 8px;
@@ -168,6 +175,11 @@ ul {
 .btn:hover,
 .btn:focus-visible {
   filter: brightness(1.1);
+}
+
+.btn-danger {
+  background: var(--color-danger);
+  color: #111827;
 }
 
 .user {
@@ -199,13 +211,232 @@ ul {
 }
 
 .section-title {
-  margin-bottom: 1.25rem;
+  margin: 2rem 0 1.25rem;
   font-size: 1.15rem;
   color: var(--color-text-muted);
   font-weight: 600;
 }
 
-/* Cards laid out with Grid */
+/* ===== Summary stats ===== */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--gap);
+}
+
+.stat {
+  padding: 1.25rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-rest);
+}
+
+.stat-label {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.stat-value {
+  font-size: 1.75rem;
+  font-weight: 700;
+}
+
+.stat-value.negative {
+  color: var(--color-danger);
+}
+
+/* ===== Feedback message + progress bar ===== */
+.feedback {
+  --level-color: var(--color-success);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin: var(--gap) 0;
+  padding: 1rem 1.25rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-left: 6px solid var(--level-color);
+  border-radius: var(--radius);
+}
+
+.feedback.warn   { --level-color: var(--color-warning); }
+.feedback.danger { --level-color: var(--color-danger); }
+
+.feedback-text {
+  font-weight: 600;
+}
+
+.progress {
+  height: 10px;
+  background: var(--color-bg);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  width: 0;
+  height: 100%;
+  background: var(--level-color);
+  border-radius: 999px;
+  transition: width 250ms ease;
+}
+
+/* ===== Forms and panels ===== */
+.panels {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--gap);
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.25rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-rest);
+}
+
+.panel h2 {
+  font-size: 1.05rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.field label {
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.field-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.field-row .field {
+  flex: 1 1 140px;
+}
+
+input,
+select {
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font: inherit;
+}
+
+input:focus-visible,
+select:focus-visible,
+.btn:focus-visible,
+.delete-btn:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 2px;
+}
+
+.form-error {
+  min-height: 1.2em;
+  color: var(--color-danger);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.panel-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.panel-note {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+.panel-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* ===== Expense list ===== */
+.expense-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.expense-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+}
+
+.expense-info {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.expense-desc {
+  font-weight: 600;
+}
+
+.expense-tag {
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  background: var(--color-surface);
+  color: var(--color-brand);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.expense-amount {
+  font-weight: 700;
+}
+
+.delete-btn {
+  padding: 0.35rem 0.6rem;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--color-text-muted);
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.delete-btn:hover,
+.delete-btn:focus-visible {
+  background: var(--color-surface);
+  color: var(--color-danger);
+}
+
+.empty {
+  padding: 1rem 0;
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+/* ===== Category cards (Grid) ===== */
 .cards {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -256,6 +487,10 @@ ul {
   font-weight: 600;
 }
 
+.badge-ok     { color: var(--color-success); }
+.badge-warn   { color: var(--color-warning); }
+.badge-danger { color: var(--color-danger); }
+
 .card h3 {
   font-size: 1rem;
   color: var(--color-text-muted);
@@ -304,6 +539,8 @@ ul {
     padding: 1rem;
   }
 
+  .stats,
+  .panels,
   .cards {
     grid-template-columns: 1fr;
   }
@@ -311,7 +548,8 @@ ul {
 
 /* Respect users who prefer less motion */
 @media (prefers-reduced-motion: reduce) {
-  .card {
+  .card,
+  .progress-bar {
     transition: none;
   }
 }

@@ -5,8 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SpendWise Dashboard</title>
   <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="style.css" />
-<script src="script.js" defer></script>
+  <script src="script.js" defer></script>
 </head>
 <body>
   <div class="app">
@@ -33,10 +32,10 @@
     <header class="header">
       <div class="header-title">
         <h1>Dashboard</h1>
-        <p>November 2026 overview</p>
+        <p id="current-month">Monthly overview</p>
       </div>
       <div class="header-actions">
-        <button class="btn" type="button">+ Add Expense</button>
+        <button class="btn" type="button" id="header-add-btn">+ Add Expense</button>
         <div class="user">
           <span class="avatar" aria-hidden="true">JD</span>
           <span class="user-name">Jane Doe</span>
@@ -46,71 +45,82 @@
 
     <!-- Main content -->
     <main class="main">
-      <h2 class="section-title">Spending by category</h2>
 
-      <section class="cards" aria-label="Category cards">
-
-        <article class="card" tabindex="0">
-          <div class="card-top">
-            <span class="card-icon" aria-hidden="true">🍔</span>
-            <span class="badge">62% used</span>
-          </div>
-          <h3>Food</h3>
-          <p class="amount">$310.00</p>
-          <p class="meta">of $500 budget</p>
-        </article>
-
-        <article class="card" tabindex="0">
-          <div class="card-top">
-            <span class="card-icon" aria-hidden="true">🚌</span>
-            <span class="badge">48% used</span>
-          </div>
-          <h3>Transport</h3>
-          <p class="amount">$96.50</p>
-          <p class="meta">of $200 budget</p>
-        </article>
-
-        <article class="card" tabindex="0">
-          <div class="card-top">
-            <span class="card-icon" aria-hidden="true">🏠</span>
-            <span class="badge">100% used</span>
-          </div>
-          <h3>Rent</h3>
-          <p class="amount">$900.00</p>
-          <p class="meta">of $900 budget</p>
-        </article>
-
-        <article class="card" tabindex="0">
-          <div class="card-top">
-            <span class="card-icon" aria-hidden="true">🎬</span>
-            <span class="badge">85% used</span>
-          </div>
-          <h3>Entertainment</h3>
-          <p class="amount">$127.50</p>
-          <p class="meta">of $150 budget</p>
-        </article>
-
-        <article class="card" tabindex="0">
-          <div class="card-top">
-            <span class="card-icon" aria-hidden="true">🏦</span>
-            <span class="badge">70% of goal</span>
-          </div>
-          <h3>Savings</h3>
-          <p class="amount">$350.00</p>
-          <p class="meta">of $500 goal</p>
-        </article>
-
-        <article class="card" tabindex="0">
-          <div class="card-top">
-            <span class="card-icon" aria-hidden="true">💡</span>
-            <span class="badge">55% used</span>
-          </div>
-          <h3>Utilities</h3>
-          <p class="amount">$110.00</p>
-          <p class="meta">of $200 budget</p>
-        </article>
-
+      <!-- Summary numbers (updated by JavaScript) -->
+      <section class="stats" aria-label="Budget summary">
+        <div class="stat">
+          <p class="stat-label">Monthly Budget</p>
+          <p class="stat-value" id="stat-budget">$0.00</p>
+        </div>
+        <div class="stat">
+          <p class="stat-label">Total Spent</p>
+          <p class="stat-value" id="stat-spent">$0.00</p>
+        </div>
+        <div class="stat">
+          <p class="stat-label">Remaining</p>
+          <p class="stat-value" id="stat-remaining">$0.00</p>
+        </div>
       </section>
+
+      <!-- Feedback message + progress bar (updated by JavaScript) -->
+      <section class="feedback" id="feedback" role="status" aria-live="polite">
+        <p class="feedback-text" id="feedback-text"></p>
+        <div class="progress">
+          <div class="progress-bar" id="progress-bar"></div>
+        </div>
+      </section>
+
+      <!-- Forms -->
+      <section class="panels" aria-label="Forms">
+        <form class="panel" id="budget-form" novalidate>
+          <h2>Monthly budget</h2>
+          <div class="field">
+            <label for="budget-input">Budget amount ($)</label>
+            <input type="number" id="budget-input" min="0" step="0.01" placeholder="e.g. 2000" />
+          </div>
+          <button class="btn" type="submit">Set Budget</button>
+          <p class="form-error" id="budget-error" role="alert"></p>
+        </form>
+
+        <form class="panel" id="expense-form" novalidate>
+          <h2>Add an expense</h2>
+          <div class="field">
+            <label for="description">Description</label>
+            <input type="text" id="description" placeholder="e.g. Lunch at the cafe" maxlength="60" />
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="amount">Amount ($)</label>
+              <input type="number" id="amount" min="0" step="0.01" placeholder="0.00" />
+            </div>
+            <div class="field">
+              <label for="category">Category</label>
+              <select id="category"></select>
+            </div>
+          </div>
+          <button class="btn" type="submit">Add Expense</button>
+          <p class="form-error" id="expense-error" role="alert"></p>
+        </form>
+      </section>
+
+      <!-- Category cards (created by JavaScript) -->
+      <h2 class="section-title">Spending by category</h2>
+      <section class="cards" id="category-cards" aria-label="Category cards"></section>
+
+      <!-- Expense list (created by JavaScript) -->
+      <h2 class="section-title">Expenses</h2>
+      <section class="panel" aria-label="Expense list">
+        <div class="panel-header">
+          <p class="panel-note" id="expense-count"></p>
+          <div class="panel-actions">
+            <select id="filter-select" aria-label="Filter expenses by category"></select>
+            <button class="btn btn-danger" type="button" id="clear-btn">Clear All</button>
+          </div>
+        </div>
+        <ul class="expense-list" id="expense-list"></ul>
+        <p class="empty" id="empty-message" hidden>No expenses to show. Add one above!</p>
+      </section>
+
     </main>
 
   </div>
